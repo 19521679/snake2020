@@ -18,8 +18,8 @@
 using namespace std;
 int select(int max, int pos, int seefirst);
 bool run();
-bool PlayClassic();
-bool PlayMorden();
+bool PlayClassic(int mode);
+bool PlayMorden(int mode);
 
 void gotoXY(int x, int y)
 {
@@ -66,7 +66,7 @@ private:
     _POINT temp;
     _POINT qua;
     int Leng;
-    int Huong = 0;
+    int Huong;
     int score = 0;
     int timedelay = 200; //Độ khó
     //Các tham số giới hạn 4 cạnh của khung trò chơi
@@ -96,8 +96,7 @@ public:
         gotoXY(consox2 + 2, 3); cout << "\"p\ to continue";
         gotoXY(consox2 + 2, 4); cout << "F5 to restart";
         gotoXY(consox2 + 2, 5); cout << "ESC to MENU";
- 
-        New();
+
    
     }
     void New()
@@ -125,7 +124,10 @@ public:
         //Tạo và vẽ quả
         TaoQua();
     }
+    void Continue()
+    {
 
+    }
     //Các hàm Setter và Getter
     void SetHuong(int a)
     {
@@ -196,10 +198,14 @@ public:
             PlaySound(TEXT("eatFood.wav"), NULL, SND_ASYNC);
             score += 10;
             gotoXY(consox2 + 8, 0);
-            cout << setw(6) << score;
+            cout << setw(6) << score;   
+            temp.x = A[Leng].x;
+            temp.y = A[Leng].y;
             Leng++;
+            
             A.push_back(temp);
             TaoQua();
+            
 
         }
     }
@@ -301,7 +307,6 @@ int select(int max, int pos, int seefirst = 0)
 bool run()
 {
     int selection;
-    int mode;
     char key;
     setFontSize(100);
     system("cls");
@@ -323,7 +328,7 @@ bool run()
 posx:;
 
     system("cls");
-    mode = 1;
+
     selection = 1;
     gotoXY(0, 0);
     //step1: select///////////////////////////////////////////////////////////////
@@ -350,12 +355,12 @@ posx:;
         cout << "Return" << endl;
         gotoXY(15, 1); cout << "<-";
 
-        mode = select(3, 15);
+        selection = select(3, 15);
         system("cls");
-        switch (mode)
+        switch (selection)
         {
-        case(1): while (PlayClassic()); break;
-        case(2): while (PlayMorden()); break;
+        case(1): while (PlayClassic(1)); break;
+        case(2): while (PlayMorden(1)); break;
         case(3): goto posx;
         }
     } break;
@@ -437,13 +442,16 @@ posx:;
     return 0;
 }
 
-bool PlayClassic()
+bool PlayClassic(int mode = 1)
 {
     system("cls");
-    SNAKE s;
+    SNAKE *s;
+    s = new SNAKE;
     char t;
-
     int Huong = 0;
+
+    if (mode == 1) s->New();
+    else if (mode == 2) s->Continue();
 
     while (1)
     {
@@ -495,38 +503,47 @@ bool PlayClassic()
             case (0):
             {
                 t = _getch();
-                if (t == 63) return 1;
+                if (t == 63)
+                {
+                    system("cls");
+                    delete s;
+                    s = new SNAKE;
+                    Huong = 0;
+                    if (mode == 1) s->New();
+                    else if (mode == 2) s->Continue();
+                }
             }break;
             }
         }
 
-        s.SetHuong(Huong);
+        s->SetHuong(Huong);
 
-        s.DiChuyen();
-        s.AnQua();
-
-        if (s.CheckCanDuoi() == true || s.CheckClassic() == true)
+        s->DiChuyen();
+        
+        s->AnQua();
+        if (s->CheckCanDuoi() == true || s->CheckClassic() == true)
         {
             PlaySound(TEXT("endGame.wav"), NULL, SND_ASYNC);
 
-            gotoXY(0,0);
+            gotoXY(0, 0);
             cout << "GAME OVER !!!"; break;
         }
-        s.Ve();
-        Sleep(s.GetSpeed());
+        s->Ve();
+        
+        Sleep(s->GetSpeed());
     }
 
     return 0;
 }
 
-bool PlayMorden()
+bool PlayMorden(int mode = 1)
 {
     system("cls");
     SNAKE s;
     char t;
-
     int Huong = 0;
-
+    if (mode == 1) s.New();
+    else if (mode == 2) s.Continue();
     while (1)
     {
         if (_kbhit())
