@@ -16,7 +16,7 @@
 #pragma comment(lib, "winmm.lib")
 
 using namespace std;
-int select(int max, int pos);
+int select(int max, int pos, int seefirst);
 bool run();
 bool PlayClassic();
 bool PlayMorden();
@@ -258,7 +258,7 @@ int main()
     return 0;
 }
 
-int select(int max, int pos)
+int select(int max, int pos, int seefirst = 0)
 {
     int selection = 1;
     char key;
@@ -274,18 +274,18 @@ int select(int max, int pos)
             {
             case (72):
 
-                gotoXY(pos, selection); cout << "  ";
+                gotoXY(pos, selection + seefirst); cout << "  ";
                 selection--;
                 if (selection == 0) selection = max;
-                gotoXY(pos, selection); cout << "<-";
+                gotoXY(pos, selection + seefirst); cout << "<-";
                 //PlaySound(TEXT("start.wav"), NULL, SND_FILENAME | SND_SYNC);
                 break;
             case (80):
 
-                gotoXY(pos, selection); cout << "  ";
+                gotoXY(pos, selection + seefirst); cout << "  ";
                 selection++;
                 if (selection == max + 1) selection = 1;
-                gotoXY(pos, selection); cout << "<-";
+                gotoXY(pos, selection + seefirst); cout << "<-";
                 //PlaySound(TEXT("start.wav"), NULL, SND_FILENAME | SND_SYNC);
                 break;
             }
@@ -321,6 +321,7 @@ bool run()
     setFontSize(20);
     
 posx:;
+
     system("cls");
     mode = 1;
     selection = 1;
@@ -355,7 +356,7 @@ posx:;
         {
         case(1): while (PlayClassic()); break;
         case(2): while (PlayMorden()); break;
-        case(3): goto posx; break;
+        case(3): goto posx;
         }
     } break;
     case (2):
@@ -423,7 +424,7 @@ posx:;
     cout << "*     NO       *" << endl;
     cout << "****************" << endl;
     gotoXY(12, 2); cout << "<-";
-    selection = select(2, 12);
+    selection = select(2, 12, 1);
     
     if (selection == 1)
     {
