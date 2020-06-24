@@ -16,6 +16,7 @@
 #pragma comment(lib, "winmm.lib")
 
 using namespace std;
+int select(int max, int pos);
 bool run();
 bool PlayClassic();
 bool PlayMorden();
@@ -67,6 +68,7 @@ private:
     int Leng;
     int Huong = 0;
     int score = 0;
+    int timedelay = 200; //Độ khó
     //Các tham số giới hạn 4 cạnh của khung trò chơi
     int consox1 = 0, consox2 = 0, consoy1 = 0, consoy2 = 0;
 public:
@@ -95,17 +97,21 @@ public:
         gotoXY(consox2 + 2, 4); cout << "F5 to restart";
         gotoXY(consox2 + 2, 5); cout << "ESC to MENU";
  
-
+        New();
+   
+    }
+    void New()
+    {
         //Thiết đặt thông số con rắn
-        Leng = 10;       
+        Leng = 10;
         for (int i = 0; i < Leng; i++)
         {
             A.push_back(temp);
             A[i].x = 10 + Leng - i - 1; A[i].y = 10;
         }
         A.push_back(temp);
-        
-       
+
+
         //Vẽ con rắn ban đầu
         for (int i = Leng - 1; i > 0; i--)
         {
@@ -119,10 +125,15 @@ public:
         //Tạo và vẽ quả
         TaoQua();
     }
+
     //Các hàm Setter và Getter
     void SetHuong(int a)
     {
         Huong = a;
+    }
+    int GetSpeed()
+    {
+        return timedelay;
     }
     /*int Getconsox1() { return consox1; }
     int Getconsox2() { return consox2; }
@@ -235,7 +246,7 @@ public:
 
 
 
-int timedelay = 200; //Độ khó
+
 int main()
 {
     SetConsoleTitleW(L"Rắn săn mồi by khanhzum!");
@@ -247,7 +258,46 @@ int main()
     return 0;
 }
 
+int select(int max, int pos)
+{
+    int selection = 1;
+    char key;
+    while (1)
+    {
+        key = _getch();
+        switch (key)
+        {
+        case (-32):
+        {
+            key = _getch();
+            switch (key)
+            {
+            case (72):
 
+                gotoXY(pos, selection); cout << "  ";
+                selection--;
+                if (selection == 0) selection = max;
+                gotoXY(pos, selection); cout << "<-";
+                //PlaySound(TEXT("start.wav"), NULL, SND_FILENAME | SND_SYNC);
+                break;
+            case (80):
+
+                gotoXY(pos, selection); cout << "  ";
+                selection++;
+                if (selection == max + 1) selection = 1;
+                gotoXY(pos, selection); cout << "<-";
+                //PlaySound(TEXT("start.wav"), NULL, SND_FILENAME | SND_SYNC);
+                break;
+            }
+        }break;
+        case (13):
+        {
+            //PlaySound(TEXT("start.wav"), NULL, SND_FILENAME | SND_SYNC);
+            return selection;
+        }
+        }
+    }
+}
 bool run()
 {
     int selection;
@@ -278,47 +328,14 @@ posx:;
     //step1: select///////////////////////////////////////////////////////////////
     cout << endl;
     cout << "New Game" << endl;
+    cout << "Continue" << endl;
     cout << "High Score" << endl;
     cout << "About" << endl;
+    cout << "Exit" << endl;
     gotoXY(15, 1); cout << "<-";
 
-    while (1)
-    {
-        key = _getch();
-        switch (key)
-        {
-        case (-32):
-        {
-            key = _getch();
-            switch (key)
-            {
-            case (72):
+    selection = select(5, 15);
 
-                gotoXY(15, selection); cout << "  ";
-                selection--;
-                if (selection == 0) selection = 3;
-                gotoXY(15, selection); cout << "<-";
-                PlaySound(TEXT("start.wav"), NULL, SND_FILENAME | SND_SYNC);
-                break;
-            case (80):
-
-                gotoXY(15, selection); cout << "  ";
-                selection++;
-                if (selection == 4) selection = 1;
-                gotoXY(15, selection); cout << "<-";
-                PlaySound(TEXT("start.wav"), NULL, SND_FILENAME | SND_SYNC);
-                break;
-            }
-        }break;
-        case (13):
-        {
-            PlaySound(TEXT("start.wav"), NULL, SND_FILENAME | SND_SYNC);
-            goto pos2; break;
-        }
-        }
-    }
-
-pos2:;
     //step2: do///////////////////////////////////////////////////////////////
     system("cls");
     switch (selection)
@@ -332,43 +349,7 @@ pos2:;
         cout << "Return" << endl;
         gotoXY(15, 1); cout << "<-";
 
-        while (1)
-        {
-            key = _getch();
-            switch (key)
-            {
-            case (-32):    
-            {
-                key = _getch();
-                switch (key)
-                {
-                case (72):
-                    
-                    gotoXY(15, mode); cout << "  ";
-                    mode--;
-                    if (mode == 0) mode = 3;
-                    gotoXY(15, mode); cout << "<-";
-                    PlaySound(TEXT("start.wav"), NULL, SND_FILENAME | SND_SYNC);
-                    break;
-                case (80):
-                    
-                    gotoXY(15, mode); cout << "  ";
-                    mode++;
-                    if (mode == 4) mode = 1;
-                    gotoXY(15, mode); cout << "<-";
-                    PlaySound(TEXT("start.wav"), NULL, SND_FILENAME | SND_SYNC);
-                    break;
-                }
-            }break;
-
-            case (13): 
-            {
-                PlaySound(TEXT("start.wav"), NULL, SND_FILENAME | SND_SYNC);
-                goto pos3; break;
-            }
-            }
-        }
-    pos3:;
+        mode = select(3, 15);
         system("cls");
         switch (mode)
         {
@@ -377,7 +358,6 @@ pos2:;
         case(3): goto posx; break;
         }
     } break;
-
     case (2):
     {
         gotoXY(0, 0);
@@ -389,12 +369,11 @@ pos2:;
             key = _getch();
             if (key == 13)
             {
-                PlaySound(TEXT("start.wav"), NULL, SND_FILENAME | SND_SYNC);
+                //PlaySound(TEXT("start.wav"), NULL, SND_FILENAME | SND_SYNC);
                 goto posx;
             }
         }
     }break;
-
     case (3):
     {
         gotoXY(0, 0);
@@ -406,11 +385,33 @@ pos2:;
             key = _getch();
             if (key == 13)
             {
-                PlaySound(TEXT("start.wav"), NULL, SND_FILENAME | SND_SYNC);
+                //PlaySound(TEXT("start.wav"), NULL, SND_FILENAME | SND_SYNC);
                 goto posx;
             }
         }
     }break;
+    
+    case (4):
+    {
+        gotoXY(0, 0);
+        cout << endl;
+        cout << "Develop by " << endl;
+        cout << "Le Mai Duy Khanh " << endl;
+        cout << "Nguyen Le Nguyen Khang " << endl;
+        cout << "Nguyen Tan Nga " << endl;
+        cout << "   from UIT with love <3!!! " << endl;
+        cout << "Return <-";
+        while (1)
+        {
+            key = _getch();
+            if (key == 13)
+            {
+                //PlaySound(TEXT("start.wav"), NULL, SND_FILENAME | SND_SYNC);
+                goto posx;
+            }
+        }
+    }break;
+    case (5):return 0; break;
     }
 
 
@@ -422,43 +423,15 @@ pos2:;
     cout << "*     NO       *" << endl;
     cout << "****************" << endl;
     gotoXY(12, 2); cout << "<-";
-    selection = 1;
-    while (1)
+    selection = select(2, 12);
+    
+    if (selection == 1)
     {
-        key = _getch();
-        switch (key)
-        {
-        case (-32):
-        {
-            key = _getch();
-            switch (key)
-            {
-            case (72):
-                
-                gotoXY(12, selection+1); cout << "  ";
-                selection--;
-                if (selection == 0) selection = 2;
-                gotoXY(12, selection+1); cout << "<-";
-                PlaySound(TEXT("start.wav"), NULL, SND_FILENAME | SND_SYNC);
-                break;
-            case (80):
-                
-                gotoXY(12, selection+1); cout << "  ";
-                selection++;
-                if (selection == 3) selection = 1;
-                gotoXY(12, selection+1); cout << "<-";
-                PlaySound(TEXT("start.wav"), NULL, SND_FILENAME | SND_SYNC);
-                break;
-            }
-        }break;
-        }
-        if (key == 13 && selection == 1)
-        {
-            PlaySound(TEXT("start.wav"), NULL, SND_FILENAME | SND_SYNC);
-            return 1;
-        }
-        if (key == 13 && selection == 2) return 0;
+        //PlaySound(TEXT("start.wav"), NULL, SND_FILENAME | SND_SYNC);
+        return 1;
     }
+    if (selection == 2) return 0;
+    
 
     return 0;
 }
@@ -539,7 +512,7 @@ bool PlayClassic()
             cout << "GAME OVER !!!"; break;
         }
         s.Ve();
-        Sleep(timedelay);
+        Sleep(s.GetSpeed());
     }
 
     return 0;
@@ -623,7 +596,7 @@ bool PlayMorden()
             cout << "GAME OVER !!!"; break;
         }
         s.Ve();
-        Sleep(timedelay);
+        Sleep(s.GetSpeed());
     }
     return 0;
 }
