@@ -75,6 +75,7 @@ int select(int max, int pos, int seefirst = 0)
         }
     }
 }
+
 bool run()
 {
     int selection;
@@ -191,7 +192,6 @@ posx:;
     case (5):return 0; break;
     }
 
-
     //step3: again?///////////////////////////////////////////////////////////////
     gotoXY(0, 0);
     cout << "****************" << endl;
@@ -207,7 +207,6 @@ posx:;
         //PlaySound(TEXT("start.wav"), NULL, SND_FILENAME | SND_SYNC);
         return 1;
     }
-    else if (selection == 2) return 0;
 
     return 0;
 }
@@ -220,6 +219,7 @@ bool PlayClassic(int mode = 1)
     char t;
     int Huong = 0;
     int colorsavegame = 9;
+
     if (mode == 1) s->New();
     else if (mode == 2) s->Continue();
 
@@ -229,7 +229,8 @@ bool PlayClassic(int mode = 1)
         {
             t = _getch();
             switch (t)
-            {
+            {   
+            //phím mũi tên
             case (-32):
             {
                 t = _getch();
@@ -261,7 +262,7 @@ bool PlayClassic(int mode = 1)
             //phím p
             case (112):
             {
-                while (1)
+                //while (1)
                 {
                     char c;
                     c = _getch();
