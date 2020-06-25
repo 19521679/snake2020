@@ -16,6 +16,8 @@
 #pragma comment(lib, "winmm.lib")
 
 using namespace std;
+void highscore();
+void save();
 int select(int max, int pos, int seefirst);
 bool run();
 bool PlayClassic(int mode);
@@ -65,6 +67,7 @@ private:
     //_POINT A[1000];
     _POINT temp;
     _POINT qua;
+    string name = { "A" };
     int Leng;
     int Huong;
     int score = 0;
@@ -136,6 +139,14 @@ public:
     int GetSpeed()
     {
         return timedelay;
+    }
+    int GetScore()
+    {
+        return score;
+    }
+    string GetName()
+    {
+        return name;
     }
     /*int Getconsox1() { return consox1; }
     int Getconsox2() { return consox2; }
@@ -263,6 +274,22 @@ int main()
  //   system("pause");
     return 0;
 }
+void highscore()
+{
+
+}
+
+void save()
+{
+    SNAKE s;
+
+    //lưu điểm, lưu tên
+    //ostream os;
+    //file: tên; điểm
+    //os= s.GetScore();
+  
+    //return os;
+}
 
 int select(int max, int pos, int seefirst = 0)
 {
@@ -384,7 +411,7 @@ posx:;
     {
         gotoXY(0, 0);
         cout << endl;
-        cout << "hello" << endl;
+        highscore();
         cout << "Return <-";
         while (1)
         {
@@ -427,9 +454,10 @@ posx:;
     cout << "* Play Again ? *" << endl;
     cout << "*     YES      *" << endl;
     cout << "*     NO       *" << endl;
+    cout << "*     SAVE       *" << endl;
     cout << "****************" << endl;
     gotoXY(12, 2); cout << "<-";
-    selection = select(2, 12, 1);
+    selection = select(3, 12, 1);
     
     if (selection == 1)
     {
@@ -437,7 +465,10 @@ posx:;
         return 1;
     }
     if (selection == 2) return 0;
-    
+    if (selection == 3)
+    {
+        save();
+    }
 
     return 0;
 }
