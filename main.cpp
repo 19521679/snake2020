@@ -79,8 +79,9 @@ bool run()
     int selection;
     char key;
     setFontSize(100);
+    //Đổi màu SNAKE///////////////////////////////////////////////////////////////
     system("cls");
-    while (!_kbhit()) //Đổi màu SNAKE///////////////////////////////////////////////////////////////
+    while (!_kbhit()) 
     {
 
         gotoXY(0, 1);
