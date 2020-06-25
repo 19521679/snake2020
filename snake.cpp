@@ -5,11 +5,8 @@
 #include <ctime>
 #include "source.h"
 
-#pragma once
 
 using namespace std;
-
-
 
 void SNAKE::New()
 {

@@ -54,7 +54,7 @@ public:
         gotoXY(consox2 + 2, 3); cout << "\"p\ to continue";
         gotoXY(consox2 + 2, 4); cout << "F5 to restart";
         gotoXY(consox2 + 2, 5); cout << "s to save game";
-        gotoXY(consox2 + 2, 6); cout << "ESC to MENU";
+        gotoXY(consox2 + 2, 6); cout << "ESC to exit";
     }
     void New();
 

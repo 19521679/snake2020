@@ -1,26 +1,22 @@
 ﻿#include <iostream>
 #include <string>
 #include <cstdlib>
-#include <string.h>
-
-#include <vector>
-
-
+#include <iostream>
+#include <io.h>
+#include <fcntl.h>
 #include <string>
 #include <windows.h>
-#include <mmsystem.h>
+
 #include "source.h"
 #include "snake.h"
-#pragma comment(lib, "winmm.lib")
+
 
 using namespace std;
 void highscore();
-
 int select(int max, int pos, int seefirst);
 bool run();
 bool PlayClassic(int mode);
 bool PlayMorden(int mode);
-
 
 int main()
 {
@@ -32,6 +28,8 @@ int main()
     //   system("pause");
     return 0;
 }
+
+
 void highscore()
 {
 
@@ -200,10 +198,9 @@ posx:;
     cout << "* Play Again ? *" << endl;
     cout << "*     YES      *" << endl;
     cout << "*     NO       *" << endl;
-    //    cout << "*  SAVE SCORE  *" << endl;
     cout << "****************" << endl;
     gotoXY(12, 2); cout << "<-";
-    selection = select(3, 12, 1);
+    selection = select(2, 12, 1);
 
     if (selection == 1)
     {
@@ -273,9 +270,29 @@ bool PlayClassic(int mode = 1)
             }break;
 
             //phím s
-            case (115): s->SaveGame();
-            case (27): return 0; break;
+            case (115): s->SaveGame(); break;
 
+            //phím ESC
+            case (27): 
+            {
+                int selection;
+                gotoXY(0, 0);
+                cout << "****************" << endl;
+                cout << "* Save Game ? *" << endl;
+                cout << "*     YES      *" << endl;
+                cout << "*     NO       *" << endl;
+                cout << "****************" << endl;
+                gotoXY(12, 2); cout << "<-";
+                selection = select(2, 12, 1);
+                if (selection == 1)
+                {
+                    s->SaveGame();
+                    return 0;
+                }
+                else return 0;
+            }break;
+
+            //phím F5
             case (0):
             {
                 t = _getch();
@@ -293,9 +310,7 @@ bool PlayClassic(int mode = 1)
         }
 
         s->SetHuong(Huong);
-
         s->DiChuyen();
-
         s->AnQua();
         if (s->CheckCanDuoi() == true || s->CheckClassic() == true)
         {
@@ -305,9 +320,9 @@ bool PlayClassic(int mode = 1)
             cout << "GAME OVER !!!"; break;
         }
         s->Ve();
-
         Sleep(s->GetSpeed());
     }
+
     s->SaveScore();
     return 0;
 }
@@ -315,11 +330,14 @@ bool PlayClassic(int mode = 1)
 bool PlayMorden(int mode = 1)
 {
     system("cls");
-    SNAKE s;
+    SNAKE* s;
+    s = new SNAKE;
     char t;
     int Huong = 0;
-    if (mode == 1) s.New();
-    else if (mode == 2) s.Continue();
+
+    if (mode == 1) s->New();
+    else if (mode == 2) s->Continue();
+
     while (1)
     {
         if (_kbhit())
@@ -355,43 +373,71 @@ bool PlayMorden(int mode = 1)
                 }
             }break;
 
+            //phím p
             case (112):
             {
                 while (1)
                 {
-
                     char c;
                     c = _getch();
                     if (c == 'p')break;
                 }
             }break;
 
-            case (27): return 0; break;
+            //phím s
+            case (115): s->SaveGame(); break;
 
+                //phím ESC
+            case (27):
+            {
+                int selection;
+                gotoXY(0, 0);
+                cout << "****************" << endl;
+                cout << "* Save Game ? *" << endl;
+                cout << "*     YES      *" << endl;
+                cout << "*     NO       *" << endl;
+                cout << "****************" << endl;
+                gotoXY(12, 2); cout << "<-";
+                selection = select(2, 12, 1);
+                if (selection == 1)
+                {
+                    s->SaveGame();
+                    return 0;
+                }
+                else return 0;
+            }break;
+
+            //phím F5
             case (0):
             {
                 t = _getch();
-                if (t == 63) return 1;
+                if (t == 63)
+                {
+                    system("cls");
+                    delete s;
+                    s = new SNAKE;
+                    Huong = 0;
+                    if (mode == 1) s->New();
+                    else if (mode == 2) s->Continue();
+                }
             }break;
             }
         }
 
-        s.SetHuong(Huong);
-
-        s.DiChuyen();
-        s.CheckModern();
-        s.AnQua();
-
-        if (s.CheckCanDuoi() == true)
+        s->SetHuong(Huong);
+        s->DiChuyen();
+        s->CheckModern();
+        s->AnQua();
+        if (s->CheckCanDuoi() == true)
         {
             PlaySound(TEXT("endGame.wav"), NULL, SND_ASYNC);
 
             gotoXY(0, 0);
             cout << "GAME OVER !!!"; break;
         }
-        s.Ve();
-        Sleep(s.GetSpeed());
+        s->Ve();
+        Sleep(s->GetSpeed());
     }
-    s.SaveScore();
+    s->SaveScore();
     return 0;
 }
