@@ -1,13 +1,10 @@
-﻿#include <ctime>
-#include <iomanip>
-#include <string.h>
-
-#include <vector>
-#include <io.h>
-#include <fcntl.h>
+﻿#include <iostream>
 #include <string>
+#include <ctime>
+#include <vector>
+#include <string.h>
 #include <windows.h>
-#include <mmsystem.h>
+
 #include "source.h"
 
 #pragma once
