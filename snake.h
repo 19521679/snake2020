@@ -60,6 +60,7 @@ public:
 
     void Continue();
     //Các hàm Setter và Getter
+    int GetConsox2();
     void SetHuong(int a);
     int GetSpeed();
     void SetScore(int x);

@@ -38,6 +38,11 @@ void SNAKE::Continue()
 
 }
    
+int SNAKE::GetConsox2()
+{
+    return consox2;
+}
+
 void SNAKE::SetHuong(int a)
 {
     Huong = a;

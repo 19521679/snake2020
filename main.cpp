@@ -219,7 +219,7 @@ bool PlayClassic(int mode = 1)
     s = new SNAKE;
     char t;
     int Huong = 0;
-
+    int colorsavegame = 9;
     if (mode == 1) s->New();
     else if (mode == 2) s->Continue();
 
@@ -270,7 +270,16 @@ bool PlayClassic(int mode = 1)
             }break;
 
             //phím s
-            case (115): s->SaveGame(); break;
+            case (115): 
+            {
+                s->SaveGame();
+                if (colorsavegame == 14) colorsavegame = 9;
+                else colorsavegame++;
+                changColor(colorsavegame);
+                gotoXY(s->GetConsox2() + 2, 8);               
+                cout << "Has Save!!!";
+                changColor(15);
+            }break;
 
             //phím ESC
             case (27): 
@@ -278,7 +287,7 @@ bool PlayClassic(int mode = 1)
                 int selection;
                 gotoXY(0, 0);
                 cout << "****************" << endl;
-                cout << "* Save Game ? *" << endl;
+                cout << "*  Save Game ? *" << endl;
                 cout << "*     YES      *" << endl;
                 cout << "*     NO       *" << endl;
                 cout << "****************" << endl;
