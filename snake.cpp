@@ -35,7 +35,20 @@ void SNAKE::New()
 }
 void SNAKE::Continue()
 {
+    //Ngà lấy dữ liệu lên và thiết lập lại thông số con rắn trong phần này
 
+    //Vẽ con rắn ban đầu
+    for (int i = Leng - 1; i > 0; i--)
+    {
+        gotoXY(A[i].x, A[i].y);
+
+        cout << "O";
+    }
+    gotoXY(A[0].x, A[0].y);
+    cout << "+";
+
+    //Tạo và vẽ quả
+    TaoQua();
 }
    
 int SNAKE::GetConsox2()

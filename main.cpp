@@ -1,10 +1,8 @@
 ﻿#include <iostream>
 #include <string>
 #include <cstdlib>
-#include <iostream>
 #include <io.h>
 #include <fcntl.h>
-#include <string>
 #include <windows.h>
 
 #include "source.h"
@@ -152,6 +150,7 @@ posx:;
             }
         }
     }break;
+
     case (3):
     {
         gotoXY(0, 0);
@@ -297,9 +296,8 @@ bool PlayClassic(int mode = 1)
                 if (selection == 1)
                 {
                     s->SaveGame();
-                    return 0;
                 }
-                else return 0;
+                return 0;
             }break;
 
             //phím F5
