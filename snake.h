@@ -22,6 +22,7 @@ private:
     //_POINT A[1000];
     _POINT temp;
     _POINT qua;
+
     string name = { "A" };
     int Leng;
     int Huong;
@@ -56,9 +57,9 @@ public:
         gotoXY(consox2 + 2, 5); cout << "s to save game";
         gotoXY(consox2 + 2, 6); cout << "ESC to exit";
     }
-    void New();
+    void New(string name);
 
-    void Continue();
+    void Continue(int option);
     //Các hàm Setter và Getter
     int GetConsox2();
     void SetHuong(int a);

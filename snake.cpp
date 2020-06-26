@@ -8,9 +8,11 @@
 
 using namespace std;
 
-void SNAKE::New()
+void SNAKE::New(string name)
 {
     //Thiết đặt thông số con rắn
+    SNAKE::name = name;
+    score = 0;
     Leng = 10;
     for (int i = 0; i < Leng; i++)
     {
@@ -33,9 +35,12 @@ void SNAKE::New()
     //Tạo và vẽ quả
     TaoQua();
 }
-void SNAKE::Continue()
+void SNAKE::Continue(int option)
 {
-    //Ngà lấy dữ liệu lên và thiết lập lại thông số con rắn trong phần này
+    //Ngà lấy dữ liệu của tài khoản số option lên và khởi tạo thông số con rắn trong phần này
+
+
+
 
     //Vẽ con rắn ban đầu
     for (int i = Leng - 1; i > 0; i--)
@@ -79,7 +84,6 @@ string SNAKE::GetName()
     
 void SNAKE::DiChuyen()
 {
-
     for (int i = Leng; i > 0; i--) A[i] = A[i - 1];
 
     if (Huong == 0) A[0].x = A[1].x + 1;
@@ -181,6 +185,8 @@ void SNAKE::CheckModern()
         A[0].y = consoy1 + 1; return;
     }
 }
+
+//Khang lưu điểm ở đây
 void SNAKE::SaveScore()
 {
     SNAKE s;
@@ -194,5 +200,7 @@ void SNAKE::SaveScore()
 }
 void SNAKE::SaveGame()
 {
+
+    //Lưu các thông số bao gồm mã số định danh (nếu có), tên, điểm, độ dài, các thông số phần thân con rắn
 }
 

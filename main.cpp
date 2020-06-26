@@ -13,8 +13,8 @@ using namespace std;
 void highscore();
 int select(int max, int pos, int seefirst);
 bool run();
-bool PlayClassic(int mode);
-bool PlayMorden(int mode);
+bool PlayClassic(int mode = 1, int option = 1);
+//bool PlayMorden(int mode);
 
 int main()
 {
@@ -27,9 +27,12 @@ int main()
     return 0;
 }
 
-
+//Khang tổ chức đọc file điểm cao lên và cout tất cả ở đây
 void highscore()
 {
+
+
+    //cout ở đây
 
 }
 
@@ -130,8 +133,20 @@ posx:;
         system("cls");
         switch (selection)
         {
-        case(1): while (PlayClassic(1)); break;
-        case(2): while (PlayMorden(1)); break;
+        case(1): while (PlayClassic()); break;
+        case(2):
+        {
+            gotoXY(0, 0);
+            cout << endl;
+            cout << "Coming soon!!!" << endl;
+            cout << "Return" << endl;
+            gotoXY(15, 2); cout << "<-";
+
+            selection = select(1, 15, 1);
+            goto posx;
+            //while (PlayMorden()); break;
+        }
+        
         case(3): goto posx;
         }
     } break;
@@ -139,17 +154,52 @@ posx:;
     {
         gotoXY(0, 0);
         cout << endl;
-        cout << "hello" << endl;
-        cout << "Return <-";
-        while (1)
+        cout << "Classic" << endl;
+        cout << "Morden" << endl;
+        cout << "Return" << endl;
+        gotoXY(15, 1); cout << "<-";
+
+        selection = select(3, 15);
+        system("cls");
+        switch (selection)
         {
-            key = _getch();
-            if (key == 13)
-            {
-                //PlaySound(TEXT("start.wav"), NULL, SND_FILENAME | SND_SYNC);
-                goto posx;
-            }
-        }
+        case(1):
+        {
+            int option = 1;
+            gotoXY(0, 0);
+            cout << endl;
+            // Đọc file lên Ngà chỉ đọc danh sách các tài khoản đã tạm dừng để đưa ra lựa chọn
+
+            cout << "A" << endl;
+            cout << "B" << endl;
+            cout << "C" << endl;
+            cout << "Return" << endl;
+            option = 3;
+            gotoXY(15, 1); cout << "<-";
+
+            selection = select(option + 1, 15);
+            system("cls");
+            if (selection != option + 1)
+                while (PlayClassic(2, selection));
+            else goto posx;
+
+        }break;
+        case(2):
+        {
+            gotoXY(0, 0);
+            cout << endl;
+            cout << "Coming soon!!!" << endl;
+            cout << "Return" << endl;
+            gotoXY(15, 2); cout << "<-";
+
+            selection = select(1, 15, 1);
+            goto posx;
+
+        }break;
+
+        case(3): goto posx;
+        }break;
+        
     }break;
 
     case (3):
@@ -211,17 +261,24 @@ posx:;
     return 0;
 }
 
-bool PlayClassic(int mode = 1)
+bool PlayClassic(int mode, int option)
 {
+    string name;
     system("cls");
+    if (mode == 1)
+    {
+        cout << "Name: ";   
+        cin >> name;
+        system("cls");
+    }
+
     SNAKE* s;
     s = new SNAKE;
     char t;
     int Huong = 0;
-    int colorsavegame = 9;
 
-    if (mode == 1) s->New();
-    else if (mode == 2) s->Continue();
+    if (mode == 1) s->New(name);
+    else if (mode == 2) s->Continue(option);
 
     while (1)
     {
@@ -274,9 +331,8 @@ bool PlayClassic(int mode = 1)
             case (115): 
             {
                 s->SaveGame();
-                if (colorsavegame == 14) colorsavegame = 9;
-                else colorsavegame++;
-                changColor(colorsavegame);
+
+                changColor(1+rand()%15);
                 gotoXY(s->GetConsox2() + 2, 8);               
                 cout << "Has Save!!!";
                 changColor(15);
@@ -311,8 +367,7 @@ bool PlayClassic(int mode = 1)
                     delete s;
                     s = new SNAKE;
                     Huong = 0;
-                    if (mode == 1) s->New();
-                    else if (mode == 2) s->Continue();
+                    s->New(name);
                 }
             }break;
             }
@@ -331,11 +386,11 @@ bool PlayClassic(int mode = 1)
         s->Ve();
         Sleep(s->GetSpeed());
     }
-
     s->SaveScore();
     return 0;
 }
 
+/*
 bool PlayMorden(int mode = 1)
 {
     system("cls");
@@ -450,3 +505,4 @@ bool PlayMorden(int mode = 1)
     s->SaveScore();
     return 0;
 }
+*/
