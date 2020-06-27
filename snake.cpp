@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <ctime>
+#include<fstream>
 #include "source.h"
 
 
@@ -189,14 +190,10 @@ void SNAKE::CheckModern()
 //Khang lưu điểm ở đây
 void SNAKE::SaveScore()
 {
-    SNAKE s;
-
-    //lưu điểm, lưu tên
-    //ostream os;
-    //file: tên; điểm
-    //os= s.GetScore();
-
-    //return os;
+    ofstream outfile;
+    outfile.open("highscore.txt", std::ios::app);
+    outfile << name << " ;" << score << endl;
+    outfile.close();
 }
 void SNAKE::SaveGame()
 {

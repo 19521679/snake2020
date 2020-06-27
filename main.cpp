@@ -1,12 +1,13 @@
 ﻿#include <iostream>
 #include <string>
+#include <string.h>
 #include <cstdlib>
 #include <io.h>
 #include <fcntl.h>
 #include <windows.h>
-
 #include "source.h"
 #include "snake.h"
+#include <fstream>
 
 
 using namespace std;
@@ -31,8 +32,16 @@ int main()
 void highscore()
 {
 
-
-    //cout ở đây
+    ifstream infile;
+    infile.open("highscore.txt", std::ios::in);
+    string highscoreshow;
+    while (!infile.eof())
+    {
+        getline(infile, highscoreshow);
+        std::cout << highscoreshow << std::endl;
+    }
+    
+    infile.close();
 
 }
 
@@ -205,7 +214,7 @@ posx:;
     case (3):
     {
         gotoXY(0, 0);
-        cout << endl;
+        cout << "Highscore: " << endl;
         highscore();
         cout << "Return <-";
         while (1)
@@ -354,6 +363,7 @@ bool PlayClassic(int mode, int option)
                 {
                     s->SaveGame();
                 }
+                s->SaveScore();
                 return 0;
             }break;
 
