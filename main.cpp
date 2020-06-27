@@ -35,10 +35,25 @@ void highscore()
     ifstream infile;
     infile.open("highscore.txt", std::ios::in);
     string highscoreshow;
+    int highscoreshow1;
     while (!infile.eof())
     {
+        /*
+        getline(infile, highscoreshow,';');
+        std::cout << setw(20) << left << highscoreshow;
+        cin >> highscoreshow1;
+
+        std::cout << highscoreshow1 << endl;
+        getline(infile, highscoreshow);*/
+        getline(infile, highscoreshow, ';');
+        std::cout << setw(20) << left << highscoreshow;
+        infile >> highscoreshow1;
         getline(infile, highscoreshow);
-        std::cout << highscoreshow << std::endl;
+
+
+        std::cout << highscoreshow1 << endl;
+        
+
     }
     
     infile.close();

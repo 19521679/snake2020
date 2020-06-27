@@ -192,7 +192,7 @@ void SNAKE::SaveScore()
 {
     ofstream outfile;
     outfile.open("highscore.txt", std::ios::app);
-    outfile << name << " ;" << score << endl;
+    outfile << endl << name << " ;" << score;
     outfile.close();
 }
 void SNAKE::SaveGame()
