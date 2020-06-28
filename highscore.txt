@@ -1,5 +1,23 @@
-khanh  ;310
-khanh ;120
-khanhzum   ;40
-zum    ;20
-zum     ;10
+khanh;10
+nga;20
+khang;30
+zum ;0
+khanh ;10
+nga ;20
+nga ;30
+khanh ;30
+khanh ;20
+nga ;20
+khang ;20
+nga ;20
+nga ;20
+nga ;30
+khanh ;20
+nga ;10
+khanh ;30
+khanh ;30
+nga ;10
+nga ;30
+khanh ;10
+nga ;20
+khanh ;10

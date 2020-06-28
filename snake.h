@@ -73,7 +73,6 @@ public:
     void Ve();
     //Tạo quả và vẽ quả, ko cần refresh khung hình
     void TaoQua();
-    void VeQua();
     //Kiểm tra có ăn quả sau mỗi lần di chuyển, nếu có tạo mới quả
     void AnQua();
     //Kiểm tra có cắn phải đuôi sau mỗi lần di chuyển

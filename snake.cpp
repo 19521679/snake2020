@@ -38,14 +38,13 @@ void SNAKE::New(string name)
 
     //Tạo và vẽ quả
     TaoQua();
-    VeQua();
 }
 void SNAKE::Continue(int option)
 {
     //Ngà lấy dữ liệu của tài khoản số option lên và khởi tạo thông số con rắn trong phần này
     ifstream infile;
     infile.open("savegame.txt", std::ios::in);
-    //chọn dòng 1
+    //chá»n dÃ²ng 1
 
     string temp;
     for (int i = 0; i < option - 1; ++i)
@@ -53,34 +52,26 @@ void SNAKE::Continue(int option)
         getline(infile, temp, '\n');
     }
 
-    getline(infile, name, ';');
+    getline(infile, name, ' ');
     infile >> score;
-    getline(infile, temp, ';');
     infile >> Huong;
-    getline(infile, temp, ';');
-    infile >> qua.x;
-    getline(infile, temp, ';');
-    infile >> qua.y;
-    getline(infile, temp, ';');
     infile >> Leng;
-    getline(infile, temp, ';');
     for (int i = 0; i < Leng; i++)
     {
         /*temp.x = A[i].x;
         temp.y = A[i].y;*/
         A.push_back(SNAKE::temp);
         infile >> A[i].x;
-        getline(infile, temp, ';');
+        getline(infile, temp, ' ');
         infile >> A[i].y;
-        getline(infile, temp, ';');
     }
     A.push_back(SNAKE::temp);
     infile.close();
 
 
 
-    //Vẽ con rắn ban đầu
-    for (int i = Leng - 1; i > 0; i--)
+    //Váº½ con ráº¯n ban Ä‘áº§u
+    for (int i = Leng-1; i > 0; i--)
     {
         gotoXY(A[i].x, A[i].y);
 
@@ -89,12 +80,8 @@ void SNAKE::Continue(int option)
     gotoXY(A[0].x, A[0].y);
     cout << "+";
 
-    gotoXY(consox2 + 8, 0);
-    cout << setw(6) << score;
-
-    //vẽ quả
-
-    VeQua();
+    //Táº¡o vÃ  váº½ quáº£
+    TaoQua();
 }
    
 int SNAKE::GetConsox2()
@@ -166,10 +153,6 @@ void SNAKE::TaoQua()
 
     qua.x = x;
     qua.y = y;
-    
-}
-void SNAKE::VeQua()
-{
     gotoXY(qua.x, qua.y);
     cout << "*";
 }
@@ -188,7 +171,6 @@ void SNAKE::AnQua()
 
         A.push_back(temp);
         TaoQua();
-        VeQua();
     }
 }
     //Kiểm tra có cắn phải đuôi sau mỗi lần di chuyển
@@ -234,40 +216,9 @@ void SNAKE::CheckModern()
 //Khang lưu điểm ở đây
 void SNAKE::SaveScore()
 {
-    
-    ifstream infile;
-    infile.open("highscore.txt", std::ios::in);
-    
-    vector <string> highname;
-    vector <int> highscore;
-    int tempscore = 0;
-    string tempname;
-    while (!infile.eof())
-    {
-
-        getline(infile, tempname, ';');
-        if (tempname != "")
-        {
-            highname.push_back(tempname);
-            infile >> tempscore;
-            highscore.push_back(tempscore);
-            getline(infile, tempname, '\n');
-        }
-    }
-    infile.close();
-  
     ofstream outfile;
-    outfile.open("highscore.txt", std::ios::out);
-    int i = 0;
-    for (; i < highscore.size() && highscore[i] > score; i++)
-    {  
-        outfile << highname[i] << " ;" << highscore[i] << endl;
-    }
-    outfile << name << " ;" << score << endl;
-    for (; i < highscore.size(); i++)
-    {
-        outfile << highname[i] << " ;" << highscore[i] << endl;
-    }       
+    outfile.open("highscore.txt", std::ios::app);
+    outfile << endl << name << " ;" << score;
     outfile.close();
 }
 void SNAKE::SaveGame()
@@ -275,10 +226,10 @@ void SNAKE::SaveGame()
     ofstream out;
     out.open("savegame.txt", std::ios::app);
 
-    out << name << ";" << score << ";" << Huong << ";" << qua.x << ";" << qua.y << ";" << Leng << ";";
+    out  << name << " " << score << " " << Huong << " "  << Leng ;
     for (int i = 0; i < Leng; i++)
     {
-        out << A[i].x << ";" << A[i].y << ";";
+        out << " " << A[i].x << " " << A[i].y ;
     }
     out << endl;
     out.close();
