@@ -2,3 +2,4 @@ khanh;10
 nga;20
 khang;30
 zum ;0
+khanh ;10

@@ -189,19 +189,29 @@ posx:;
         {
         case(1):
         {
-            int option = 1;
+            int option = 0;
             gotoXY(0, 0);
             cout << endl;
             // Đọc file lên Ngà chỉ đọc danh sách các tài khoản đã tạm dừng để đưa ra lựa chọn
 
-            cout << "A" << endl;
-            cout << "B" << endl;
-            cout << "C" << endl;
-            cout << "Return" << endl;
-            option = 3;
-            gotoXY(15, 1); cout << "<-";
+            ifstream infile;
+            infile.open("savegame.txt", std::ios::in);
+            string temp;
+            while (!infile.eof())
+            {
+                getline(infile, temp, ';');
+                std::cout << setw(20) << left << temp;
+                getline(infile, temp, ';');
+                std::cout << temp << endl;
+                getline(infile, temp, '\n');
+                option++;
+            }
 
-            selection = select(option + 1, 15);
+            infile.close();
+            //
+            cout << "Return" << endl;
+            gotoXY(23, 1); cout << "<-";
+            selection = select(option + 1, 23); //1
             system("cls");
             if (selection != option + 1)
                 while (PlayClassic(2, selection));
