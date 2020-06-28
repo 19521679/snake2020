@@ -35,24 +35,19 @@ void highscore()
     ifstream infile;
     infile.open("highscore.txt", std::ios::in);
     string highscoreshow;
-    int highscoreshow1;
+    int temp = 0;
     while (!infile.eof())
     {
-        /*
-        getline(infile, highscoreshow,';');
-        std::cout << setw(20) << left << highscoreshow;
-        cin >> highscoreshow1;
 
-        std::cout << highscoreshow1 << endl;
-        getline(infile, highscoreshow);*/
         getline(infile, highscoreshow, ';');
-        std::cout << setw(20) << left << highscoreshow;
-        infile >> highscoreshow1;
-        getline(infile, highscoreshow);
+        if (highscoreshow != "")
+        {
+            std::cout << setw(20) << left << highscoreshow;
 
-
-        std::cout << highscoreshow1 << endl;
-        
+            infile >> temp;
+            getline(infile, highscoreshow, '\n');
+            cout << temp << endl;
+        }
 
     }
     
@@ -200,18 +195,21 @@ posx:;
             while (!infile.eof())
             {
                 getline(infile, temp, ';');
-                std::cout << setw(20) << left << temp;
-                getline(infile, temp, ';');
-                std::cout << temp << endl;
-                getline(infile, temp, '\n');
-                option++;
+                if (temp != "")
+                {
+                    option++;
+                    std::cout << setw(20) << left << temp;
+                    getline(infile, temp, ';');
+                    std::cout << temp << endl;
+                    getline(infile, temp, '\n');
+                }                     
+                
             }
-
             infile.close();
             //
             cout << "Return" << endl;
-            gotoXY(23, 1); cout << "<-";
-            selection = select(option + 1, 23); //1
+            gotoXY(26, 1); cout << "<-";
+            selection = select(option + 1, 26); //1
             system("cls");
             if (selection != option + 1)
                 while (PlayClassic(2, selection));
@@ -331,21 +329,25 @@ bool PlayClassic(int mode, int option)
                 {
                     PlaySound(TEXT("beep.wav"), NULL, SND_ASYNC);
                     Huong = 3;
+                    s->SetHuong(Huong);
                 } break;
                 case (80):if (Huong != 3)
                 {
                     PlaySound(TEXT("beep.wav"), NULL, SND_ASYNC);
                     Huong = 1;
+                    s->SetHuong(Huong);
                 } break;
                 case (75):if (Huong != 0)
                 {
                     PlaySound(TEXT("beep.wav"), NULL, SND_ASYNC);
                     Huong = 2;
+                    s->SetHuong(Huong);
                 } break;
                 case (77):if (Huong != 2)
                 {
                     PlaySound(TEXT("beep.wav"), NULL, SND_ASYNC);
                     Huong = 0;
+                    s->SetHuong(Huong);
                 } break;
                 }
             }break;
@@ -408,7 +410,7 @@ bool PlayClassic(int mode, int option)
             }
         }
 
-        s->SetHuong(Huong);
+        
         s->DiChuyen();
         s->AnQua();
         if (s->CheckCanDuoi() == true || s->CheckClassic() == true)
