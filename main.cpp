@@ -43,14 +43,17 @@ void highscore()
 		if (highscoreshow != "")
 		{
 			std::cout << setw(20) << left << highscoreshow;
+
 			infile >> temp;
 			getline(infile, highscoreshow, '\n');
 			cout << temp << endl;
 		}
+		else break;
 
 	}
 
 	infile.close();
+	return;
 
 }
 
@@ -423,6 +426,7 @@ bool PlayClassic(int mode, int option)
 		Sleep(s->GetSpeed());
 	}
 	s->SaveScore();
+	delete s;
 	return 0;
 }
 

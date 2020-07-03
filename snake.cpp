@@ -234,6 +234,7 @@ void SNAKE::CheckModern()
 //Khang lưu điểm ở đây
 void SNAKE::SaveScore()
 {
+
 	ifstream infile;
 	infile.open("highscore.txt", std::ios::in);
 
@@ -243,6 +244,7 @@ void SNAKE::SaveScore()
 	string tempname;
 	while (!infile.eof())
 	{
+
 		getline(infile, tempname, ';');
 		if (tempname != "")
 		{
@@ -251,6 +253,7 @@ void SNAKE::SaveScore()
 			highscore.push_back(tempscore);
 			getline(infile, tempname, '\n');
 		}
+		else break;
 	}
 	infile.close();
 
