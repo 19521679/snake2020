@@ -1,0 +1,5 @@
+asd ;10
+khanh    ;10
+dasd  ;0
+asd   ;0
+khanh     ;0
