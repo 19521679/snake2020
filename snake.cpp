@@ -9,7 +9,7 @@ SNAKE::SNAKE()
 
 SNAKE::SNAKE(int x1, int x2, int y1, int y2)
 {
-    consox1 = x1, consox2 = x2, consoy1 = y1, consoy2 = y2;    
+    consox1 = x1, consox2 = x2, consoy1 = y1, consoy2 = y2;
     Init();
 }
 
@@ -44,7 +44,8 @@ void SNAKE::Continue(int option)
 {
     //Ngà lấy dữ liệu của tài khoản số option lên và khởi tạo thông số con rắn trong phần này
     ifstream infile;
-    infile.open("savegame.txt", std::ios::in);
+    if (chedochoi == 0) infile.open("savegameclassic.txt", std::ios::in);
+    else infile.open("savegamemorden.txt", std::ios::in);
     //chọn dòng 1
 
     string temp;
