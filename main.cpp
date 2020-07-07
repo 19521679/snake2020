@@ -7,7 +7,6 @@
 #include <windows.h>
 #include "source.h"
 #include "snake.h"
-#include <fstream>
 
 
 using namespace std;
