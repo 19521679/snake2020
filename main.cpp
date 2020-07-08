@@ -23,7 +23,7 @@ int main()
 
     while (run());
 
-       system("pause");
+    //system("pause");
     return 0;
 }
 

@@ -28,6 +28,7 @@ private:
     int Leng = 10;
     int Huong;
     int score = 0;
+    int level = 0; 
     int timedelay = 200; //Độ khó
     //Các tham số giới hạn 4 cạnh của khung trò chơi
     int consox1 = 0; int consox2 = 50; int consoy1 = 0; int consoy2 = 25;

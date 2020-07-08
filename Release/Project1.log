@@ -1,4 +1,10 @@
-﻿Release\source.obj : warning LNK4042: object specified more than once; extras ignored
+﻿  snake.cpp
+C:\Users\khanh\source\repos\snake2020\snake.h(58,41): warning C4129: ' ': unrecognized character escape sequence
+C:\Users\khanh\source\repos\snake2020\snake.cpp(257,14): warning C4018: '<': signed/unsigned mismatch
+C:\Users\khanh\source\repos\snake2020\snake.cpp(262,14): warning C4018: '<': signed/unsigned mismatch
+  source.cpp
+  source.h
+Release\source.obj : warning LNK4042: object specified more than once; extras ignored
   Generating code
   0 of 344 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
