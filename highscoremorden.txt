@@ -1,1 +1,3 @@
-khanh ;310
+khanh   ;310
+nga  ;40
+nga ;30

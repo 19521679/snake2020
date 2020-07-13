@@ -65,6 +65,8 @@ void SNAKE::Continue(int option)
     getline(infile, temp, ';');
     infile >> Leng;
     getline(infile, temp, ';');
+    infile >> level;
+    getline(infile, temp, ';');
     for (int i = 0; i < Leng; i++)
     {
         /*temp.x = A[i].x;
@@ -181,6 +183,7 @@ void SNAKE::AnQua()
         temp.x = A[Leng].x;
         temp.y = A[Leng].y;
         Leng++;
+        if (timedelay > 20) timedelay -= 20;
         A.push_back(temp);
         TaoQua();
         VeQua();
@@ -273,7 +276,7 @@ void SNAKE::SaveGame()
     if (chedochoi == 0) out.open("savegameclassic.txt", std::ios::app);
     else out.open("savegamemorden.txt", std::ios::app);
 
-    out << name << ";" << score << ";" << Huong << ";" << qua.x << ";" << qua.y << ";" << Leng << ";";
+    out << name << ";" << score << ";" << Huong << ";" << qua.x << ";" << qua.y << ";" << Leng << ";" << level << ";";
     for (int i = 0; i < Leng; i++)
     {
         out << A[i].x << ";" << A[i].y << ";";
