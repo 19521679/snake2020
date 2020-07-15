@@ -28,7 +28,7 @@ private:
     int Leng = 10;
     int Huong;
     int score = 0;
-    int level = 0; 
+    int level;
     int timedelay = 200; //Độ khó
     //Các tham số giới hạn 4 cạnh của khung trò chơi
     int consox1 = 0; int consox2 = 50; int consoy1 = 0; int consoy2 = 25;
@@ -61,13 +61,14 @@ public:
         gotoXY(consox2 + 2, 5); cout << "s to save game";
         gotoXY(consox2 + 2, 6); cout << "ESC to exit";
     }
-    void New(string name);
+    void New(string name,int level);
 
     void Continue(int option);
 
     //Các hàm Setter và Getter
     int GetConsox2();
     void SetHuong(int a);
+    int GetHuong();
     int GetSpeed();
     void SetScore(int x);
     int GetScore();

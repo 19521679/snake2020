@@ -13,10 +13,11 @@ SNAKE::SNAKE(int x1, int x2, int y1, int y2)
     Init();
 }
 
-void SNAKE::New(string name)
+void SNAKE::New(string name,int level)
 {
     //Thiết đặt thông số con rắn
     SNAKE::name = name;
+    SNAKE::level = level;
     score = 0;
     Leng = 10;
     for (int i = 0; i < Leng; i++)
@@ -25,6 +26,14 @@ void SNAKE::New(string name)
         A[i].x = 10 + Leng - i - 1; A[i].y = 10;
     }
     A.push_back(temp);
+
+    switch (level)
+    {
+    case (1): timedelay = 300; break;
+    case (2): timedelay = 200; break;
+    case (3): timedelay = 100; break;
+    case (4): timedelay = 50; break;
+    }
 
     //Vẽ con rắn ban đầu
     for (int i = Leng - 1; i > 0; i--)
@@ -55,6 +64,8 @@ void SNAKE::Continue(int option)
     }
 
     getline(infile, name, ';');
+    infile >> level;
+    getline(infile, temp, ';');
     infile >> score;
     getline(infile, temp, ';');
     infile >> Huong;
@@ -64,8 +75,6 @@ void SNAKE::Continue(int option)
     infile >> qua.y;
     getline(infile, temp, ';');
     infile >> Leng;
-    getline(infile, temp, ';');
-    infile >> level;
     getline(infile, temp, ';');
     for (int i = 0; i < Leng; i++)
     {
@@ -79,6 +88,14 @@ void SNAKE::Continue(int option)
     }
     A.push_back(SNAKE::temp);
     infile.close();
+
+    switch (level)
+    {
+    case (1): timedelay = 300; break;
+    case (2): timedelay = 200; break;
+    case (3): timedelay = 100; break;
+    case (4): timedelay = 50; break;
+    }
 
     //Vẽ con rắn ban đầu
     for (int i = Leng - 1; i > 0; i--)
@@ -105,6 +122,10 @@ int SNAKE::GetConsox2()
 void SNAKE::SetHuong(int a)
 {
     Huong = a;
+}
+int SNAKE::GetHuong()
+{
+    return Huong;
 }
 int SNAKE::GetSpeed()
 {
@@ -183,7 +204,6 @@ void SNAKE::AnQua()
         temp.x = A[Leng].x;
         temp.y = A[Leng].y;
         Leng++;
-        if (timedelay > 20) timedelay -= 20;
         A.push_back(temp);
         TaoQua();
         VeQua();
@@ -236,15 +256,24 @@ void SNAKE::SaveScore()
     if (chedochoi == 0) infile.open("highscoreclassic.txt", std::ios::in);
     else infile.open("highscoremorden.txt", std::ios::in);
     vector <string> highname;
+    vector <int> highlevel;
     vector <int> highscore;
+    
     int tempscore = 0;
+    int templevel = 0;
     string tempname;
+    int temp;
     while (!infile.eof())
     {
+        
         getline(infile, tempname, ';');
         if (tempname != "")
         {
             highname.push_back(tempname);
+          
+            infile >> templevel;
+            highlevel.push_back(templevel);
+            getline(infile, tempname, ';');
             infile >> tempscore;
             highscore.push_back(tempscore);
             getline(infile, tempname, '\n');
@@ -256,16 +285,37 @@ void SNAKE::SaveScore()
     ofstream outfile;
     if (chedochoi == 0) outfile.open("highscoreclassic.txt", std::ios::out);
     else outfile.open("highscoremorden.txt", std::ios::out);
-    int i = 0;
-    for (; i < highscore.size() && highscore[i] > score; i++)
+    for (int k = 1; k <= 4; k++)
     {  
-        outfile << highname[i] << " ;" << highscore[i] << endl;
+        if (highscore.size() == 0)
+        {
+            outfile << name << " ;" << level << ";" << score << endl;
+            break;
+        }
+        else
+        {
+            if (k != level)
+            {
+                for (int i = 0; i < highscore.size() && highlevel[i] == k; i++)
+                {
+                    outfile << highname[i] << " ;" << k << ";" << highscore[i] << endl;
+                } 
+            }
+            else
+            {
+                int i = 0;
+                for (; i < highscore.size() && highscore[i] > score && highlevel[i] == k; i++)
+                {
+                    outfile << highname[i] << " ;" << k << ";" << highscore[i] << endl;
+                }
+                if (k == level) outfile << name << " ;" << level << ";" << score << endl;
+                for (; i < highscore.size() && highlevel[i] == k; i++)
+                {
+                    outfile << highname[i] << " ;" << k << ";" << highscore[i] << endl;
+                }
+            }
+        }
     }
-    outfile << name << " ;" << score << endl;
-    for (; i < highscore.size(); i++)
-    {
-        outfile << highname[i] << " ;" << highscore[i] << endl;
-    }       
     outfile.close();
 }
 void SNAKE::SaveGame()
@@ -276,7 +326,7 @@ void SNAKE::SaveGame()
     if (chedochoi == 0) out.open("savegameclassic.txt", std::ios::app);
     else out.open("savegamemorden.txt", std::ios::app);
 
-    out << name << ";" << score << ";" << Huong << ";" << qua.x << ";" << qua.y << ";" << Leng << ";" << level << ";";
+    out << name << ";" << level << ";" << score << ";" << Huong << ";" << qua.x << ";" << qua.y << ";" << Leng << ";";
     for (int i = 0; i < Leng; i++)
     {
         out << A[i].x << ";" << A[i].y << ";";

@@ -23,29 +23,32 @@ int main()
 
     while (run());
 
-    //system("pause");
+       system("pause");
     return 0;
 }
 
 //Khang tổ chức đọc file điểm cao lên và cout tất cả ở đây
 void highscore(int chedochoi)
 {
-    string highscoreshow;
+    string temp;
+    int so;
     ifstream infile;
     if (chedochoi == 0) infile.open("highscoreclassic.txt", std::ios::in);
     else infile.open("highscoremorden.txt", std::ios::in);
     
-    int temp = 0;
     while (!infile.eof())
     {
-        getline(infile, highscoreshow, ';');
-        if (highscoreshow != "")
+        getline(infile, temp, ';');
+        if (temp != "")
         {
-            std::cout << setw(20) << left << highscoreshow;
-
-            infile >> temp;
-            getline(infile, highscoreshow, '\n');
-            cout << temp << endl;
+            std::cout << setw(20) << left << temp;
+            infile >> so;
+            std::cout << setw(10) << left << so;
+            getline(infile, temp, ';');
+            infile >> so;
+            std::cout << so << endl;
+            getline(infile, temp, '\n');
+           
         }
         else break;
     }   
@@ -157,6 +160,7 @@ posx:;
         case(3): goto posx;
         }
     } break;
+    
     case (2):
     {
         gotoXY(0, 0);
@@ -166,87 +170,63 @@ posx:;
         cout << "Return" << endl;
         gotoXY(15, 1); cout << "<-";
 
-        selection = select(3, 15);
+        int chedochoi;
+        chedochoi = select(3, 15) - 1;
+        /* gotoXY(0, 5);
+         cout << chedochoi << endl;
+         int a;
+         cin >> a;*/
         system("cls");
-        switch (selection)
-        {
-        case(1):
-        {
-            int option = 0;
-            gotoXY(0, 0);
-            cout << endl;
-            // Đọc file lên Ngà chỉ đọc danh sách các tài khoản đã tạm dừng để đưa ra lựa chọn
 
-            ifstream infile;
-            infile.open("savegameclassic.txt", std::ios::in);
-            string temp;
-            while (!infile.eof())
+        if (chedochoi == 3) goto posx;
+
+        int option = 0;
+        gotoXY(0, 0);
+        std::cout << setw(20) << left << "Name";
+        std::cout << setw(10) << left << "Level";
+        std::cout << "Score" << endl;
+        // Đọc file lên Ngà chỉ đọc danh sách các tài khoản đã tạm dừng để đưa ra lựa chọn
+
+        ifstream infile;
+        if (chedochoi == 0) infile.open("savegameclassic.txt", std::ios::in);
+        else infile.open("savegamemorden.txt", std::ios::in);
+        string temp;
+        while (!infile.eof())
+        {
+            getline(infile, temp, ';');
+            if (temp != "")
             {
+                option++;
+                std::cout << setw(20) << left << temp;
                 getline(infile, temp, ';');
-                if (temp != "")
-                {
-                    option++;
-                    std::cout << setw(20) << left << temp;
-                    getline(infile, temp, ';');
-                    std::cout << temp << endl;
-                    getline(infile, temp, '\n');
-                }       
-                else break;
-                
-            }
-            infile.close();
-            //
-            cout << "Return" << endl;
-            gotoXY(26, 1); cout << "<-";
-            selection = select(option + 1, 26); //1
-            system("cls");
-            if (selection != option + 1)
-                while (Play(0, 1, selection));
-            else goto posx;
-
-        }break;
-        case(2):
-        {
-            int option = 0;
-            gotoXY(0, 0);
-            cout << endl;
-            // Đọc file lên Ngà chỉ đọc danh sách các tài khoản đã tạm dừng để đưa ra lựa chọn
-            ifstream infile;
-            infile.open("savegamemorden.txt", std::ios::in);
-            string temp;
-            while (!infile.eof())
-            {
+                std::cout << setw(10) << left << temp;
                 getline(infile, temp, ';');
-                if (temp != "")
-                {
-                    option++;
-                    std::cout << setw(20) << left << temp;
-                    getline(infile, temp, ';');
-                    std::cout << temp << endl;
-                    getline(infile, temp, '\n');
-                }
-                else break;
+                std::cout << temp << endl;
+                getline(infile, temp, '\n');
             }
-            infile.close();
-            //
-            cout << "Return" << endl;
-            gotoXY(26, 1); cout << "<-";
-            selection = select(option + 1, 26); //1
-            system("cls");
-            if (selection != option + 1)
-                while (Play(1, 1, selection));
-            else goto posx;
-        }break;
+            else break;
 
-        case(3): goto posx;
-        }break;
-        
+        }
+        infile.close();
+        //
+        cout << "Return" << endl;
+        gotoXY(40, 1); cout << "<-";
+        selection = select(option + 1, 40); //1
+        system("cls");
+        if (selection != option + 1)
+            while (Play(chedochoi, 1, selection));
+        else goto posx;
+
     }break;
 
     case (3):
     {
         gotoXY(0, 0);
         cout << "Highscore: " << endl;
+        std::cout << setw(20) << left << "Name";
+        std::cout << setw(10) << left << "Level";
+        std::cout << "Score" << endl;
+       
         cout << "Classic:" << endl << endl;
         highscore(0);
         cout << endl << "Morden:" << endl << endl;
@@ -309,21 +289,39 @@ posx:;
 bool Play(int chedochoi, int mode, int option)
 {
     string name;
+    int level;
+    int Huong;
     system("cls");
     if (mode == 0)
     {
-        cout << "Name: ";   
+        cout << "Name: ";
         cin >> name;
+        cout << "Select" << endl;
+        cout << "Level 1" << endl;
+        cout << "Level 2" << endl;
+        cout << "Level 3" << endl;
+        cout << "Level 4" << endl;
+        gotoXY(15, 2); cout << "<-";
+        level = select(4, 15, 1);
+    
         system("cls");
     }
 
     SNAKE* s;
     s = new SNAKE;
     char t;
-    int Huong = 0;
+    
     s->SetChedochoi(chedochoi);
-    if (mode == 0) s->New(name);
-    else if (mode == 1) s->Continue(option);
+    if (mode == 0)
+    {
+        s->New(name, level);
+        Huong = 0;
+    }
+    else if (mode == 1)
+    {
+        s->Continue(option);
+        Huong = s->GetHuong();
+    }
 
     while (1)
     {
@@ -417,7 +415,17 @@ bool Play(int chedochoi, int mode, int option)
                     delete s;
                     s = new SNAKE;
                     Huong = 0;
-                    s->New(name);
+                    if (mode == 0)
+                    {
+                        Huong = 0;
+                        s->New(name, level);
+                    }
+                    else if (mode == 1)
+                    {                
+                        s->Continue(option);
+                        Huong = s->GetHuong();
+                    }
+
                 }
             }break;
             }
