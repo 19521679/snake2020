@@ -23,7 +23,6 @@ int main()
 
     while (run());
 
-       system("pause");
     return 0;
 }
 
@@ -54,7 +53,6 @@ void highscore(int chedochoi)
     }   
     infile.close();
     return;
-
 }
 
 int select(int max, int pos, int seefirst = 0)
@@ -77,7 +75,7 @@ int select(int max, int pos, int seefirst = 0)
                 selection--;
                 if (selection == 0) selection = max;
                 gotoXY(pos, selection + seefirst); cout << "<-";
-                //PlaySound(TEXT("start.wav"), NULL, SND_FILENAME | SND_SYNC);
+                
                 break;
             case (80):
 
@@ -85,13 +83,13 @@ int select(int max, int pos, int seefirst = 0)
                 selection++;
                 if (selection == max + 1) selection = 1;
                 gotoXY(pos, selection + seefirst); cout << "<-";
-                //PlaySound(TEXT("start.wav"), NULL, SND_FILENAME | SND_SYNC);
+                
                 break;
             }
         }break;
         case (13):
         {
-            //PlaySound(TEXT("start.wav"), NULL, SND_FILENAME | SND_SYNC);
+          
             return selection;
         }
         }
@@ -103,25 +101,22 @@ bool run()
     int selection;
     char key;
     setFontSize(100);
+
     //Đổi màu SNAKE///////////////////////////////////////////////////////////////
     system("cls");
     while (!_kbhit()) 
     {
-
         gotoXY(0, 1);
         changColor(1 + rand() % 15);
         cout << " - SNAKE -  ";
         Sleep(300);
     }
-
     key = _getch();
-
     gotoXY(0, 0);
     changColor(15);
     setFontSize(20);
 
 posx:;
-
     system("cls");
 
     selection = 1;

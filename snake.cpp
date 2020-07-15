@@ -13,6 +13,31 @@ SNAKE::SNAKE(int x1, int x2, int y1, int y2)
     Init();
 }
 
+void SNAKE::Init()
+{
+    //Vẽ khung viền
+    gotoXY(consox1, consoy1);
+    for (int i = consox1; i <= consox2; i++)
+        cout << "-";
+    gotoXY(consox1, consoy2);
+    for (int i = consox1; i <= consox2; i++)
+        cout << "-";
+    for (int i = consoy1 + 1; i < consoy2; i++)
+    {
+        gotoXY(consox1, i); cout << "|";
+    }
+    for (int i = consoy1 + 1; i < consoy2; i++)
+    {
+        gotoXY(consox2, i); cout << "|";
+    }
+    gotoXY(consox2 + 2, 0); cout << "SCORE:    0";
+    gotoXY(consox2 + 2, 2); cout << "\"p\" to pause";
+    gotoXY(consox2 + 2, 3); cout << "\"p\ to continue";
+    gotoXY(consox2 + 2, 4); cout << "F5 to restart";
+    gotoXY(consox2 + 2, 5); cout << "s to save game";
+    gotoXY(consox2 + 2, 6); cout << "ESC to exit";
+}
+
 void SNAKE::New(string name,int level)
 {
     //Thiết đặt thông số con rắn
@@ -22,10 +47,10 @@ void SNAKE::New(string name,int level)
     Leng = 10;
     for (int i = 0; i < Leng; i++)
     {
-        A.push_back(temp);
+        A.push_back(_POINT());
         A[i].x = 10 + Leng - i - 1; A[i].y = 10;
     }
-    A.push_back(temp);
+    A.push_back(_POINT());
 
     switch (level)
     {
@@ -80,13 +105,13 @@ void SNAKE::Continue(int option)
     {
         /*temp.x = A[i].x;
         temp.y = A[i].y;*/
-        A.push_back(SNAKE::temp);
+        A.push_back(_POINT());
         infile >> A[i].x;
         getline(infile, temp, ';');
         infile >> A[i].y;
         getline(infile, temp, ';');
     }
-    A.push_back(SNAKE::temp);
+    A.push_back(_POINT());
     infile.close();
 
     switch (level)
@@ -187,6 +212,7 @@ void SNAKE::TaoQua()
     qua.x = x;
     qua.y = y;  
 }
+
 void SNAKE::VeQua()
 {
     gotoXY(qua.x, qua.y);
@@ -197,7 +223,9 @@ void SNAKE::AnQua()
 {
     if (A[0].x == qua.x && A[0].y == qua.y)
     {
+        
         PlaySound(TEXT("eatFood.wav"), NULL, SND_ASYNC);
+        _POINT temp;
         score += 10;
         gotoXY(consox2 + 8, 0);
         cout << setw(6) << score;
@@ -263,9 +291,9 @@ void SNAKE::SaveScore()
     int templevel = 0;
     string tempname;
     int temp;
+    //Nạp dữ liệu về
     while (!infile.eof())
     {
-        
         getline(infile, tempname, ';');
         if (tempname != "")
         {
@@ -285,6 +313,8 @@ void SNAKE::SaveScore()
     ofstream outfile;
     if (chedochoi == 0) outfile.open("highscoreclassic.txt", std::ios::out);
     else outfile.open("highscoremorden.txt", std::ios::out);
+
+    //Phân tích và sắp xếp lại bảng điểm 
     for (int k = 1; k <= 4; k++)
     {  
         if (highscore.size() == 0)
@@ -320,7 +350,6 @@ void SNAKE::SaveScore()
 }
 void SNAKE::SaveGame()
 {
-    
     //Lưu các thông số bao gồm mã số định danh (nếu có), tên, điểm, độ dài, các thông số phần thân con rắn
     ofstream out;
     if (chedochoi == 0) out.open("savegameclassic.txt", std::ios::app);

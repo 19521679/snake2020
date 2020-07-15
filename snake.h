@@ -21,9 +21,9 @@ class SNAKE {
 private:
     vector <_POINT> A;
     //_POINT A[1000];
-    _POINT temp;
+
     _POINT qua;
-    int chedochoi=0;
+    int chedochoi = 0;
     string name = { "A" };
     int Leng = 10;
     int Huong;
@@ -37,32 +37,8 @@ public:
     SNAKE();
     SNAKE(int x1, int x2, int y1, int y2);
     
-    void Init()
-    {
-        //Vẽ khung viền
-        gotoXY(consox1, consoy1);
-        for (int i = consox1; i <= consox2; i++)
-            cout << "-";
-        gotoXY(consox1, consoy2);
-        for (int i = consox1; i <= consox2; i++)
-            cout << "-";
-        for (int i = consoy1 + 1; i < consoy2; i++)
-        {
-            gotoXY(consox1, i); cout << "|";
-        }
-        for (int i = consoy1 + 1; i < consoy2; i++)
-        {
-            gotoXY(consox2, i); cout << "|";
-        }
-        gotoXY(consox2 + 2, 0); cout << "SCORE:    0";
-        gotoXY(consox2 + 2, 2); cout << "\"p\" to pause";
-        gotoXY(consox2 + 2, 3); cout << "\"p\ to continue";
-        gotoXY(consox2 + 2, 4); cout << "F5 to restart";
-        gotoXY(consox2 + 2, 5); cout << "s to save game";
-        gotoXY(consox2 + 2, 6); cout << "ESC to exit";
-    }
+    void Init();
     void New(string name,int level);
-
     void Continue(int option);
 
     //Các hàm Setter và Getter
