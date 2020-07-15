@@ -1,0 +1,258 @@
+
+\title{Template báo cáo CNTT}
+\documentclass[12pt]{article}
+\usepackage[T5]{fontenc}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage[vietnamese,english]{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{listings}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+
+\usepackage[left=2.00cm, right=2.00cm, top=2.00cm, bottom=2.00cm]{geometry}
+\begin{document}
+
+\begin{titlepage}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for the horizontal lines, change thickness here
+
+\center % Center everything on the page
+ 
+%----------------------------------------------------------------------------------------
+%	HEADING SECTIONS
+%----------------------------------------------------------------------------------------
+
+\textsc{\LARGE Đại học Công Nghệ Thông Tin}\\[1.5cm] % Name of your university/college
+\textsc{\Large Ngành hệ thống thông tin}\\[0.5cm] % Major heading such as course name
+\textsc{\large Môn học: Kỹ Năng Nghề Nghiệp }\\[0.5cm] % Minor heading such as course title
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\HRule \\[0.4cm]
+{ \huge \bfseries Báo Cáo Đồ Án Kết Thúc Môn Học}\\[0.3cm] % Title of your document
+\HRule \\[1.0cm]
+\begin{minipage}{0.4\textwidth}
+\begin{flushright} \large
+\emph{\centerline{ĐỀ TÀI:}} \\
+\centerline{\textbf{LẬP TRÌNH TRÒ CHƠI CON RẮN}} 
+\end{flushright}
+\end{minipage}\\[2cm]
+
+\includegraphics{Logo_UIT.jpg}\\[1cm] 
+
+\begin{minipage}{2.0\textwidth}
+\begin{flushleft} \large
+\emph{Giảng viên: Nguyễn Văn Toàn}\\
+\emph{Nhóm 7 lớp SS004.K24}\\
+\emph{Sinh viên thực hiện: }\\
+Nguyễn Lê Nguyên Khang         19521666\\
+Nguyễn Tấn Ngà                 19521879\\
+Lê Mai Duy Khánh               19521679\\
+\end{flushleft}
+\end{minipage}
+
+\vfill 
+
+\end{titlepage}
+\begin{document}
+\markboth{{\it Mục lục}}{{\it Mục lục}}
+\addcontentsline{toc}{section}{{\bf Mục lục\rm }}
+\tableofcontents
+
+\newpage
+\section{Hướng dẫn sử dụng và giới thiệu:}
+\subsection{Giới thiệu các chức năng chính:}
+\textbf{Giao diện trò chơi gồm: }\\
+- Logo trò chơi: SNAKE\\
+- Bảng chức năng: New game, Continue, Highscore, About, Exit\\
+\textbf{Game có 2 chế độ: Classic và Modern}\\
+- Chế độ Classic: không thể chạm tường\\
+- Chế độ Modern: có thể chạm tường và quay ngược lại\\
+\\
+\textbf{Chức năng của từng menu: }
+\begin{itemize}
+\item \textbf{Menu New Game: } cho người chơi chọn 1 trong 2 chế độ
+\item \textbf{Menu Continue gồm : }tên người chơi và điểm số.
+\item \textbf{Menu Highscore: } hiển thị danh sách điểm cao cảu 2 chế độ.
+\item \textbf{Menu About: } hiển thị thông tin nhóm sinh viên.
+\item \textbf{Menu Exit: } thoát game.
+\end{itemize}
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=1.0\textwidth]{display.png}
+\caption{\label{fig:node} Màn hình khi đang chơi game }
+\end{figure}
+
+
+\newpage
+\subsection{Các class được sử dụng: }
+Chương trình sử dụng class SNAKE 
+
+\subsection{Cấu trúc chính của chương trình}
+
+\begin{itemize}
+\item Chương trình có class SNAKE để lưu lại các thông số của con rắn và vẽ con rắn.
+\item Vẽ khung viền cho game ngay trong class.
+\item Trong class SNAKE chứa các hàm để xử lý trò chơi: Dichuyen, Ve, Taoqua, Vequa, Anqua, Savescore, Savegame, ...
+\item Trong file main.cpp có hàm run là menu lựa chọn, hàm play là hoạt động di chuyển của con rắn.
+\end{itemize}
+
+\subsection{Hướng dẫn sử dụng: }
+Sử dụng 4 phím mũi tên để điều khiển con rắn.\\
+Trong lúc chơi game nhấn phím p để pause game và tiếp tục, nhấn F5 để chơi lại từ đầu, nhấn s để lưu game, nhấn ESC để thoát.
+
+\newpage
+\section{Link Github và Trello: }
+\newline
+\href{https://github.com/19521679/snake2020?fbclid=IwAR30wtsN1vVV54wQXW5yb0cI8zoFhNqRHukYUhXgFDCLu5WlbwOowSP9CWc}{\newline Link Github}
+\href{https://trello.com/b/yyniZMzo/snake}{\newline Link Trello}
+
+\newpage
+\section{Các điểm tâm đắc:  }
+{- Tối ưu hoá code triệt để: mỗi bước di chuyển sẽ xoá điểm ảnh cuối cùng và tạo điểm ảnh đầu tiên, không cần in hết từ đầu đến cuối sẽ khiến trò chơi bị lag và ảnh hưởng đến cảm nhận di chuyển.
+\newline
+- Sử dụng có chọn lọc giữa các kiến thức hướng đối tượng và hm thủ tục.
+\newline
+- Xây dựng được hàm lựa chọn để dùng mũi tên di chuyển trong cả menu lẫn trong quá trình chơi.
+\newline
+- Đa dạng hoá tính năng: tạo mới, tạm dùng, tiếp tục, điểm, danh sách điểm cao,... người chơi có thể tạm dừng hoặc lưu game lại và tắt máy vẫn không mất quá trình đang chơi. 
+\newline
+- Điều chỉnh được tốc độ con rắn.
+\newline
+- Code hoạt động ổn định.
+\newline
+- Nhóm hoạt động tích cực, hoàn thành tốt nhiệm vụ được giao. Vượt qua được mọi tình huống khó khăn. 
+}
+\newpage
+\section{Hợp đồng thành lập nhóm: }
+\subsection{MỤC ĐÍCH THÀNH LẬP NHÓM: }
+
+\begin{itemize}
+\item Nhóm thành lập cùng nhau hợp tác hoàn thành các bài thu hoạch môn Kỹ năng nghề nghiệp
+\item Nâng cao kỹ năng làm việc nhóm cùng với các kỹ năng mềm khác của từng thành viên.
+\end{itemize}
+
+\subsection{NGUYÊN TĂC HOẠT ĐỘNG: }
+
+\begin{itemize}
+\item Công bằng, bình đẳng, mọi thành viên đều có đóng góp, xây dựng cho đồ án.
+\item Tham gia các buổi họp, làm việc nhóm đầy đủ.
+\item Chuẩn bị nội dung theo yêu cầu được giao.
+\item Hình thức ra quyết định: Nhóm thảo luận, lựa chọn, nhóm trưởng tham khảo quyết định.
+\item Các thông báo, trao đổi và báo cáo kết quả sẽ thực hiện kênh chat của nhóm trên facebook và Trello.
+\item Tất cả các nội dung được lưu trữ trên thư mục của nhóm trên Github.
+\end{itemize}
+\subsection{THÔNG TIN NHÓM: }
+
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}{|l|l|l|l|}
+\hline
+MSSV& 
+Họ và tên& 
+Vai trò& 
+Công việc \\
+\hline
+19521666& 
+Nguyễn Lê Nguyên Khang& 
+Nhóm
+trưởng
+& 
+Quản lý hoạt động nhóm.
+Quản lý, phân công, sửa chữa Trello.
+Soạn hợp đồng nhóm.
+Mục nhập và xuất danh sách điểm cao.
+\hline
+19521679& 
+Lê Mai Duy Khánh& 
+Thành
+viên
+& 
+Quản lý, phân công, sửa chữa Git.
+Tạo bộ khung class SNAKE, menu lựa chọn(run), xuất màn hình(Play).
+
+\hline
+19521879& 
+Nguyễn Tấn Ngà& 
+Thành
+viên
+& 
+Quản lý, phân công, sửa chữa file báo cáo.
+Phần giới thiệu và hướng dẫn chơi.
+Hàm tiếp tục và tạm dừng, lưu toạ độ vào file.
+
+\hline
+\end{tabular}
+\label{tab1}
+\end{center}
+\end{table}
+
+
+\subsection{NGUYÊN TẮC ĐÁNH GIÁ: }
+
+\begin{itemize}
+\item Đánh giá thành viên dựa trên thang điểm 10.
+\item Đánh giá chéo.
+\item Không được tự cho điểm bản thân.
+\item Điểm mỗi thành viên là trung bình cộng điểm đánh giá của thành viên khác về mình.
+\item 
+\end{itemize}
+\begin{tabular}{|l|c|}
+\hline 
+Tham gia họp, làm việc
+cùng nhóm.
+ & +0 đến +3 điểm.
+\\ 
+\hline 
+Hoàn thành nhiệm vụ được
+giao.
+ & +0 đến +3
+điểm.
+ 
+\\ 
+\hline 
+Tham gia đóng góp ý kiến.  & +0 đến +3
+điểm.
+\\
+\hline
+Tinh thần, thái độ làm
+việc.
+ &+0 đến +1
+điểm.
+\\
+\hline
+\end{tabular}\\
+\underline {\textbf{\textit{Lưu ý: }}}\textbf{\textit{: }}\textit{Có thể cho điểm thập phân, làm tròn đến chữ số thứ nhất sau dấu phẩy.}
+
+\newpage
+\section{Bảng đánh giá nhóm: }
+\underline{\textbf{BẢNG ĐÁNH GIÁ NHÓM: }}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=1.0\textwidth]{bangdanhgia.png}
+\end{figure}
+
+\underline{\textbf{ĐIỂM TRUNG BÌNH: }}
+\begin{figure}[h]
+\centering
+\includegraphics[width=1.0\textwidth]{diemtrungbinh.png}
+\end{figure}
+
+
+\end{document}
+
+
+\end{document}

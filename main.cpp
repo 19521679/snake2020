@@ -173,7 +173,7 @@ posx:;
          cin >> a;*/
         system("cls");
 
-        if (chedochoi == 3) goto posx;
+        if (chedochoi == 2) goto posx;
 
         int option = 0;
         gotoXY(0, 0);
